@@ -104,6 +104,8 @@
       console.log("所有音频加载完毕");
     });
 
+    let isSeeking = false; // 标记是否正在拖动进度条
+
     // 当前播放时创建的音频节点保存到每个 track 对象中
     // 每次播放前都会重新创建，确保和视频时间同步
     function startAudioNodes(offset) {
@@ -141,21 +143,27 @@
           try {
             track.source.stop();
           } catch (e) {
-            console.log(e);
+            console.log("音频停止异常:", e);
           }
+          track.source.disconnect();
           track.source = null;
+        }
+        if (track.gainNode) {
+          track.gainNode.disconnect();
+          track.gainNode = null;
         }
       });
     }
 
     const video = document.getElementById("video");
 
-    // 当视频播放时启动音频节点
+    // 当视频播放时启动音频节点 确保播放时仅启动一组音频
     video.addEventListener("play", () => {
-      // 若 AudioContext 处于挂起状态则恢复
+      if (isSeeking) return;
       if (audioContext.state === "suspended") {
         audioContext.resume();
       }
+      stopAudioNodes(); // 先清除可能存在的音频节点
       startAudioNodes(video.currentTime);
     });
 
@@ -164,10 +172,14 @@
       stopAudioNodes();
     });
 
-    // 拖动进度条时重置音频节点，确保音频与视频时间对齐
+    // 拖动进度条时，避免重复创建音频节点
     video.addEventListener("seeking", () => {
+      isSeeking = true;
       stopAudioNodes();
-      // 如果视频处于播放状态，则重新启动音频节点
+    });
+
+    video.addEventListener("seeked", () => {
+      isSeeking = false;
       if (!video.paused) {
         startAudioNodes(video.currentTime);
       }
