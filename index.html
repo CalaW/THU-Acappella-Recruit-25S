@@ -21,6 +21,30 @@
       max-width: 800px;
       margin: auto;
     }
+
+    .btn {
+      &:hover {
+        background-color: var(--bs-btn-bg);
+        color: var(--bs-btn-color);
+      }
+
+      &:focus {
+        background-color: var(--bs-btn-bg);
+        color: var(--bs-btn-color);
+      }
+
+      &.active {
+        &:hover {
+          background-color: var(--bs-btn-active-bg);
+          color: var(--bs-btn-active-color);
+        }
+
+        &:focus {
+          background-color: var(--bs-btn-active-bg);
+          color: var(--bs-btn-active-color);
+        }
+      }
+    }
   </style>
 </head>
 
@@ -31,32 +55,32 @@
       <div class="d-flex flex-wrap justify-content-center align-items-center">
         <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-solo" checked>
-          <label class="btn btn-outline-success btn-label d-block" for="button-solo">主旋律<br>Soloist</label>
+          <label class="btn btn-outline-primary btn-label d-block" for="button-solo">主旋律<br>Soloist</label>
           <input type="range" id="volume-solo" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
         <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-soprano" checked>
-          <label class="btn btn-outline-success btn-label d-block" for="button-soprano">女高<br>Soprano</label>
+          <label class="btn btn-outline-primary btn-label d-block" for="button-soprano">女高<br>Soprano</label>
           <input type="range" id="volume-soprano" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
         <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-alto" checked>
-          <label class="btn btn-outline-success btn-label d-block" for="button-alto">女中<br>Alto</label>
+          <label class="btn btn-outline-primary btn-label d-block" for="button-alto">女中<br>Alto</label>
           <input type="range" id="volume-alto" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
         <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-tenor" checked>
-          <label class="btn btn-outline-success btn-label d-block" for="button-tenor">男高<br>Tenor</label>
+          <label class="btn btn-outline-primary btn-label d-block" for="button-tenor">男高<br>Tenor</label>
           <input type="range" id="volume-tenor" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
         <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-bass" checked>
-          <label class="btn btn-outline-success btn-label d-block" for="button-bass">男低<br>Bass</label>
+          <label class="btn btn-outline-primary btn-label d-block" for="button-bass">男低<br>Bass</label>
           <input type="range" id="volume-bass" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
         <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-tempo" checked>
-          <label class="btn btn-outline-success btn-label d-block" for="button-tempo">节拍器<br>Metronome</label>
+          <label class="btn btn-outline-primary btn-label d-block" for="button-tempo">节拍器<br>Metronome</label>
           <input type="range" id="volume-tempo" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
       </div>
