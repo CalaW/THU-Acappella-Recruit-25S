@@ -88,154 +88,129 @@
     <source src="assets/Tick.mp3" type="audio/mpeg" />
   </audio>
   <script>
-    window.onload = () => {
-      const audioPentatonix = document.getElementById("audio-pentatonix");
-      const audioSolo = document.getElementById("audio-solo");
-      const audioSoprano = document.getElementById("audio-soprano");
-      const audioAlto = document.getElementById("audio-alto");
-      const audioTenor = document.getElementById("audio-tenor");
-      const audioBass = document.getElementById("audio-bass");
-      const audioTempo = document.getElementById("audio-tempo");
+    // 创建 AudioContext
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-      const audios = [
-        audioPentatonix,
-        audioSolo,
-        audioSoprano,
-        audioAlto,
-        audioTenor,
-        audioBass,
-        audioTempo,
-      ];
+    // 定义各个声部的配置信息
+    // 对于原唱，我们单独处理，因此 slider 设为 null
+    const tracks = [
+      { id: "pentatonix", url: "assets/Pentatonix.mp3", checkbox: document.getElementById("button-pentatonix"), slider: null },
+      { id: "solo", url: "assets/Solo.mp3", checkbox: document.getElementById("button-solo"), slider: document.getElementById("volume-solo") },
+      { id: "soprano", url: "assets/Soprano.mp3", checkbox: document.getElementById("button-soprano"), slider: document.getElementById("volume-soprano") },
+      { id: "alto", url: "assets/Alto.mp3", checkbox: document.getElementById("button-alto"), slider: document.getElementById("volume-alto") },
+      { id: "tenor", url: "assets/Tenor.mp3", checkbox: document.getElementById("button-tenor"), slider: document.getElementById("volume-tenor") },
+      { id: "bass", url: "assets/Bass.mp3", checkbox: document.getElementById("button-bass"), slider: document.getElementById("volume-bass") },
+      { id: "tempo", url: "assets/Tick.mp3", checkbox: document.getElementById("button-tempo"), slider: document.getElementById("volume-tempo") },
+    ];
 
-      // 除原唱外默认音量设为 0.5
-      audios.slice(1).forEach((audio) => {
-        audio.volume = 0.5;
+    // 用于存储加载好的 AudioBuffer
+    const bufferMap = {};
+
+    // 异步加载音频并解码成 AudioBuffer
+    async function loadAudioBuffer(url) {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      return await audioContext.decodeAudioData(arrayBuffer);
+    }
+
+    // 加载所有音频
+    Promise.all(tracks.map(track =>
+      loadAudioBuffer(track.url).then(buffer => {
+        bufferMap[track.id] = buffer;
+      })
+    )).then(() => {
+      console.log("所有音频加载完毕");
+    });
+
+    // 当前播放时创建的音频节点保存到每个 track 对象中
+    // 每次播放前都会重新创建，确保和视频时间同步
+    function startAudioNodes(offset) {
+      tracks.forEach(track => {
+        // 如果该轨未启用，则跳过
+        if (!track.checkbox.checked) return;
+
+        // 计算音量（除原唱外满音量均为50%）
+        const vol = track.slider ? track.slider.value / 200 : 1.0;
+        // 创建 GainNode 调整音量
+        const gainNode = audioContext.createGain();
+        gainNode.gain.value = vol;
+        gainNode.connect(audioContext.destination);
+
+        // 创建 AudioBufferSourceNode 并连接到 GainNode
+        const source = audioContext.createBufferSource();
+        source.buffer = bufferMap[track.id];
+        source.connect(gainNode);
+
+        // 计算从视频当前时间开始播放的偏移量（避免超出音频时长）
+        const startOffset = Math.min(offset, source.buffer.duration - 0.1);
+        // 从 audioContext.currentTime 开始播放
+        source.start(audioContext.currentTime, startOffset);
+
+        // 保存节点引用，方便后续控制（如停止或调整音量）
+        track.source = source;
+        track.gainNode = gainNode;
       });
+    }
 
-      const buttonPentatonix = document.getElementById("button-pentatonix");
-      const buttonSolo = document.getElementById("button-solo");
-      const buttonSoprano = document.getElementById("button-soprano");
-      const buttonAlto = document.getElementById("button-alto");
-      const buttonTenor = document.getElementById("button-tenor");
-      const buttonBass = document.getElementById("button-bass");
-      const buttonTempo = document.getElementById("button-tempo");
-
-      const buttons = [
-        buttonPentatonix,
-        buttonSolo,
-        buttonSoprano,
-        buttonAlto,
-        buttonTenor,
-        buttonBass,
-        buttonTempo,
-      ];
-
-      // 注意：原唱没有音量滑块
-      const volumeSolo = document.getElementById("volume-solo");
-      const volumeSoprano = document.getElementById("volume-soprano");
-      const volumeAlto = document.getElementById("volume-alto");
-      const volumeTenor = document.getElementById("volume-tenor");
-      const volumeBass = document.getElementById("volume-bass");
-      const volumeTempo = document.getElementById("volume-tempo");
-
-      const volumes = [
-        null,
-        volumeSolo,
-        volumeSoprano,
-        volumeAlto,
-        volumeTenor,
-        volumeBass,
-        volumeTempo,
-      ];
-
-      const video = document.getElementById("video");
-
-      // 允许视频与音频的时间差距上限（秒）
-      const videoSyncThreshold = 0.5;
-      // 音频间严格同步的阈值（秒）
-      const audioSyncThreshold = 0.1;
-
-      // 当视频开始播放时，将所有音轨初始定位到视频时间
-      video.addEventListener("play", () => {
-        audios.forEach((audio, index) => {
-          if (buttons[index].checked) {
-            audio.currentTime = video.currentTime;
-            audio.play();
+    // 停止当前所有播放的音频节点
+    function stopAudioNodes() {
+      tracks.forEach(track => {
+        if (track.source) {
+          try {
+            track.source.stop();
+          } catch (e) {
+            console.log(e);
           }
-        });
-      });
-
-      // 持续检查音轨间同步情况
-      const updateAudioSync = () => {
-        // 选中且正在播放的音轨中，以第一个为“主轨”
-        let masterTime = null;
-        for (let i = 0; i < audios.length; i++) {
-          if (buttons[i].checked && !audios[i].paused) {
-            masterTime = audios[i].currentTime;
-            break;
-          }
-        }
-        // 如果都未播放，则以视频时间作为参考
-        if (masterTime === null) {
-          masterTime = video.currentTime;
-        }
-        // 若视频与音轨差距过大，则将“主轨”设为视频时间
-        if (Math.abs(video.currentTime - masterTime) > videoSyncThreshold) {
-          masterTime = video.currentTime;
-        }
-        // 遍历所有选中音轨，若偏差过大则调整到主轨时间
-        audios.forEach((audio, index) => {
-          if (buttons[index].checked && buttons[index].disabled === false) {
-            if (Math.abs(audio.currentTime - masterTime) > audioSyncThreshold) {
-              audio.currentTime = masterTime;
-            }
-            if (audio.paused) {
-              audio.play();
-            }
-          } else {
-            audio.pause();
-          }
-        });
-      };
-
-      // 监听视频 timeupdate 事件，但这里主要用于触发音频间同步，而非强制和视频严格同步
-      video.addEventListener("timeupdate", updateAudioSync);
-
-      // 视频暂停时，暂停所有音轨
-      video.addEventListener("pause", () => {
-        audios.forEach((audio) => {
-          audio.pause();
-        });
-      });
-
-      // 当切换“原唱”时，禁用其他音轨与滑块
-      buttonPentatonix.addEventListener("change", () => {
-        buttons.slice(1).forEach((button) => {
-          button.disabled = buttonPentatonix.checked;
-        });
-        volumes.slice(1).forEach((slider) => {
-          slider.disabled = buttonPentatonix.checked;
-        });
-      });
-
-      // 按钮状态改变时触发同步
-      buttons.forEach((button) => {
-        button.addEventListener("change", () => {
-          if (!video.paused) {
-            updateAudioSync();
-          }
-        });
-      });
-
-      // 音量滑块调整音量
-      volumes.forEach((slider, index) => {
-        if (slider) {
-          slider.addEventListener("input", () => {
-            audios[index].volume = 0.005 * slider.value;
-          });
+          track.source = null;
         }
       });
-    };
+    }
+
+    const video = document.getElementById("video");
+
+    // 当视频播放时启动音频节点
+    video.addEventListener("play", () => {
+      // 若 AudioContext 处于挂起状态则恢复
+      if (audioContext.state === "suspended") {
+        audioContext.resume();
+      }
+      startAudioNodes(video.currentTime);
+    });
+
+    // 视频暂停时停止音频播放
+    video.addEventListener("pause", () => {
+      stopAudioNodes();
+    });
+
+    // 拖动进度条时重置音频节点，确保音频与视频时间对齐
+    video.addEventListener("seeking", () => {
+      stopAudioNodes();
+      // 如果视频处于播放状态，则重新启动音频节点
+      if (!video.paused) {
+        startAudioNodes(video.currentTime);
+      }
+    });
+
+    // 声部开关变化时，若视频正在播放则重新同步音频
+    tracks.forEach(track => {
+      track.checkbox.addEventListener("change", () => {
+        if (!video.paused) {
+          stopAudioNodes();
+          startAudioNodes(video.currentTime);
+        }
+      });
+    });
+
+    // 音量滑块变化时，更新对应的 GainNode
+    tracks.forEach(track => {
+      if (track.slider) {
+        track.slider.addEventListener("input", () => {
+          if (track.gainNode) {
+            track.gainNode.gain.value = track.slider.value / 200;
+          }
+        });
+      }
+    });
   </script>
 </body>
 
