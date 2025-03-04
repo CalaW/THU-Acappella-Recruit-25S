@@ -1,71 +1,75 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh">
 
 <head>
-  <title>阿卡社面试曲目</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THU Acappella Recruitment 25 Spring</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
   <style>
-    label {
+    .btn-label {
       margin: 0 1rem;
+      text-align: center;
     }
 
-    .main {
-      display: flex;
-      justify-content: center;
+    .control-group {
+      margin-bottom: 1rem;
     }
 
-    .main>div {
-      margin: 0 0.5rem;
+    .video-container {
+      max-width: 800px;
+      margin: auto;
     }
   </style>
 </head>
 
 <body>
-  <div>
-    <div style="width: 100%; padding: 1rem">
-      <div class="main">
-        <div>
-          <input type="checkbox" class="btn-check" id="button-pentatonix" style="width: 100%">
-          <label class="btn btn-outline-primary" for="button-pentatonix">原唱<br />Original</label>
-        </div>
-        <div>
+  <div class="container py-3">
+    <!-- 声部控制面板 -->
+    <div class="control-group">
+      <div class="d-flex flex-wrap justify-content-center align-items-center">
+        <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-solo" checked>
-          <label class="btn btn-outline-success" for="button-solo" style="display:block">主旋律<br />Soloist</label>
-          <input type="range" id="volume-solo" min="0" max="100" value="100" style="width:120px">
+          <label class="btn btn-outline-success btn-label d-block" for="button-solo">主旋律<br>Soloist</label>
+          <input type="range" id="volume-solo" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
-        <div>
+        <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-soprano" checked>
-          <label class="btn btn-outline-success" for="button-soprano" style="display:block">女高<br />Soparno</label>
-          <input type="range" id="volume-soprano" min="0" max="100" value="100" style="width:120px">
+          <label class="btn btn-outline-success btn-label d-block" for="button-soprano">女高<br>Soprano</label>
+          <input type="range" id="volume-soprano" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
-        <div>
+        <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-alto" checked>
-          <label class="btn btn-outline-success" for="button-alto" style="display:block">女中<br />Alto</label>
-          <input type="range" id="volume-alto" min="0" max="100" value="100" style="width:120px">
+          <label class="btn btn-outline-success btn-label d-block" for="button-alto">女中<br>Alto</label>
+          <input type="range" id="volume-alto" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
-        <div>
+        <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-tenor" checked>
-          <label class="btn btn-outline-success" for="button-tenor" style="display:block">男高<br />Tenor</label>
-          <input type="range" id="volume-tenor" min="0" max="100" value="100" style="width:120px">
+          <label class="btn btn-outline-success btn-label d-block" for="button-tenor">男高<br>Tenor</label>
+          <input type="range" id="volume-tenor" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
-        <div>
+        <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-bass" checked>
-          <label class="btn btn-outline-success" for="button-bass" style="display:block">男低<br />Bass</label>
-          <input type="range" id="volume-bass" min="0" max="100" value="100" style="width:120px">
+          <label class="btn btn-outline-success btn-label d-block" for="button-bass">男低<br>Bass</label>
+          <input type="range" id="volume-bass" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
-        <div>
+        <div class="text-center m-2">
           <input type="checkbox" class="btn-check" id="button-tempo" checked>
-          <label class="btn btn-outline-success" for="button-tempo" style="display:block">节拍器<br />Metronome</label>
-          <input type="range" id="volume-tempo" min="0" max="100" value="100" style="width:120px">
+          <label class="btn btn-outline-success btn-label d-block" for="button-tempo">节拍器<br>Metronome</label>
+          <input type="range" id="volume-tempo" min="0" max="100" value="100" class="form-range w-auto mx-auto">
         </div>
       </div>
     </div>
-    <div style="width: 100%">
-      <video controls muted width="800" style="display:block; margin:auto" id="video">
-        <source src="assets/Score.mp4" type="video/mp4" />
+    <!-- 视频播放区域 -->
+    <div class="video-container">
+      <video controls muted width="100%" id="video" class="d-block mx-auto">
+        <source src="assets/Score.mp4" type="video/mp4">
       </video>
     </div>
   </div>
+
+  <!-- 音频同步脚本 -->
   <script>
     // 创建 AudioContext
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -73,7 +77,6 @@
     // 定义各个声部的配置信息
     // 对于原唱，我们单独处理，因此 slider 设为 null
     const tracks = [
-      { id: "pentatonix", url: "assets/Pentatonix.mp3", checkbox: document.getElementById("button-pentatonix"), slider: null },
       { id: "solo", url: "assets/Solo.mp3", checkbox: document.getElementById("button-solo"), slider: document.getElementById("volume-solo") },
       { id: "soprano", url: "assets/Soprano.mp3", checkbox: document.getElementById("button-soprano"), slider: document.getElementById("volume-soprano") },
       { id: "alto", url: "assets/Alto.mp3", checkbox: document.getElementById("button-alto"), slider: document.getElementById("volume-alto") },
@@ -109,7 +112,7 @@
         if (!track.checkbox.checked) return;
 
         // 计算音量（除原唱外满音量均为50%）
-        const vol = track.slider ? track.slider.value / 200 : 1.0;
+        const vol = track.slider.value / 200;
         // 创建 GainNode 调整音量
         const gainNode = audioContext.createGain();
         gainNode.gain.value = vol;
