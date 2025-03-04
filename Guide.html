@@ -1,226 +1,242 @@
 <html>
 
 <head>
-    <title>阿卡社面试曲目</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <style>
-        label {
-            margin: 0 1rem;
-        }
+  <title>阿卡社面试曲目</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <style>
+    label {
+      margin: 0 1rem;
+    }
 
-        .main {
-            display: flex;
-            justify-content: center;
-        }
+    .main {
+      display: flex;
+      justify-content: center;
+    }
 
-        .main>div {
-            margin: 0 0.5rem;
-        }
-    </style>
+    .main>div {
+      margin: 0 0.5rem;
+    }
+  </style>
 </head>
 
 <body>
-    <div>
-        <div style="width: 100%; padding: 1rem">
-            <div class="main">
-                <div>
-                    <input type="checkbox" class="btn-check" id="button-pentatonix" style="width: 100%">
-                    <label class="btn btn-outline-primary" for="button-pentatonix">原唱<br />Original</label>
-                </div>
-                <div>
-                    <input type="checkbox" class="btn-check" id="button-solo" checked>
-                    <label class="btn btn-outline-success" for="button-solo"
-                        style="display:block">主旋律<br />Soloist</label>
-                    <input type="range" id="volume-solo" min="0" max="100" value="100" style="width:120px">
-                </div>
-                <div>
-                    <input type="checkbox" class="btn-check" id="button-soprano" checked>
-                    <label class="btn btn-outline-success" for="button-soprano"
-                        style="display:block">女高<br />Soparno</label>
-                    <input type="range" id="volume-soprano" min="0" max="100" value="100" style="width:120px">
-                </div>
-                <div>
-                    <input type="checkbox" class="btn-check" id="button-alto" checked>
-                    <label class="btn btn-outline-success" for="button-alto" style="display:block">女中<br />Alto</label>
-                    <input type="range" id="volume-alto" min="0" max="100" value="100" style="width:120px">
-                </div>
-                <div>
-                    <input type="checkbox" class="btn-check" id="button-tenor" checked>
-                    <label class="btn btn-outline-success" for="button-tenor"
-                        style="display:block">男高<br />Tenor</label>
-                    <input type="range" id="volume-tenor" min="0" max="100" value="100" style="width:120px">
-                </div>
-                <div>
-                    <input type="checkbox" class="btn-check" id="button-bass" checked>
-                    <label class="btn btn-outline-success" for="button-bass" style="display:block">男低<br />Bass</label>
-                    <input type="range" id="volume-bass" min="0" max="100" value="100" style="width:120px">
-                </div>
-                <div>
-                    <input type="checkbox" class="btn-check" id="button-tempo" checked>
-                    <label class="btn btn-outline-success" for="button-tempo"
-                        style="display:block">节拍器<br />Metronome</label>
-                    <input type="range" id="volume-tempo" min="0" max="100" value="100" style="width:120px">
-                </div>
-            </div>
+  <div>
+    <div style="width: 100%; padding: 1rem">
+      <div class="main">
+        <div>
+          <input type="checkbox" class="btn-check" id="button-pentatonix" style="width: 100%">
+          <label class="btn btn-outline-primary" for="button-pentatonix">原唱<br />Original</label>
         </div>
-        <div style="width: 100%">
-            <video controls muted width="800" style="display:block; margin:auto" id="video">
-                <source src="src/Score.mp4" type="video/mp4" />
-            </video>
+        <div>
+          <input type="checkbox" class="btn-check" id="button-solo" checked>
+          <label class="btn btn-outline-success" for="button-solo" style="display:block">主旋律<br />Soloist</label>
+          <input type="range" id="volume-solo" min="0" max="100" value="100" style="width:120px">
         </div>
+        <div>
+          <input type="checkbox" class="btn-check" id="button-soprano" checked>
+          <label class="btn btn-outline-success" for="button-soprano" style="display:block">女高<br />Soparno</label>
+          <input type="range" id="volume-soprano" min="0" max="100" value="100" style="width:120px">
+        </div>
+        <div>
+          <input type="checkbox" class="btn-check" id="button-alto" checked>
+          <label class="btn btn-outline-success" for="button-alto" style="display:block">女中<br />Alto</label>
+          <input type="range" id="volume-alto" min="0" max="100" value="100" style="width:120px">
+        </div>
+        <div>
+          <input type="checkbox" class="btn-check" id="button-tenor" checked>
+          <label class="btn btn-outline-success" for="button-tenor" style="display:block">男高<br />Tenor</label>
+          <input type="range" id="volume-tenor" min="0" max="100" value="100" style="width:120px">
+        </div>
+        <div>
+          <input type="checkbox" class="btn-check" id="button-bass" checked>
+          <label class="btn btn-outline-success" for="button-bass" style="display:block">男低<br />Bass</label>
+          <input type="range" id="volume-bass" min="0" max="100" value="100" style="width:120px">
+        </div>
+        <div>
+          <input type="checkbox" class="btn-check" id="button-tempo" checked>
+          <label class="btn btn-outline-success" for="button-tempo" style="display:block">节拍器<br />Metronome</label>
+          <input type="range" id="volume-tempo" min="0" max="100" value="100" style="width:120px">
+        </div>
+      </div>
     </div>
-    <audio id="audio-pentatonix" preload="auto">
-        <source src="src/Pentatonix.mp3" type="audio/mpeg" />
-    </audio>
-    <audio id="audio-solo" preload="auto">
-        <source src="src/Solo.mp3" type="audio/mpeg" />
-    </audio>
-    <audio id="audio-soprano" preload="auto">
-        <source src="src/Soprano.mp3" type="audio/mpeg" />
-    </audio>
-    <audio id="audio-alto" preload="auto">
-        <source src="src/Alto.mp3" type="audio/mpeg" />
-    </audio>
-    <audio id="audio-tenor" preload="auto">
-        <source src="src/Tenor.mp3" type="audio/mpeg" />
-    </audio>
-    <audio id="audio-bass" preload="auto">
-        <source src="src/Bass.mp3" type="audio/mpeg" />
-    </audio>
-    <audio id="audio-tempo" preload="auto">
-        <source src="src/Tick.mp3" type="audio/mpeg" />
-    </audio>
-    <script>
-        window.onload = () => {
-            const audioPentatonix = document.getElementById("audio-pentatonix");
-            const audioSolo = document.getElementById("audio-solo");
-            const audioSoprano = document.getElementById("audio-soprano");
-            const audioAlto = document.getElementById("audio-alto");
-            const audioTenor = document.getElementById("audio-tenor");
-            const audioBass = document.getElementById("audio-bass");
-            const audioTempo = document.getElementById("audio-tempo");
+    <div style="width: 100%">
+      <video controls muted width="800" style="display:block; margin:auto" id="video">
+        <source src="src/Score.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+  <audio id="audio-pentatonix" preload="auto">
+    <source src="src/Pentatonix.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-solo" preload="auto">
+    <source src="src/Solo.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-soprano" preload="auto">
+    <source src="src/Soprano.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-alto" preload="auto">
+    <source src="src/Alto.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-tenor" preload="auto">
+    <source src="src/Tenor.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-bass" preload="auto">
+    <source src="src/Bass.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-tempo" preload="auto">
+    <source src="src/Tick.mp3" type="audio/mpeg" />
+  </audio>
+  <script>
+    window.onload = () => {
+      const audioPentatonix = document.getElementById("audio-pentatonix");
+      const audioSolo = document.getElementById("audio-solo");
+      const audioSoprano = document.getElementById("audio-soprano");
+      const audioAlto = document.getElementById("audio-alto");
+      const audioTenor = document.getElementById("audio-tenor");
+      const audioBass = document.getElementById("audio-bass");
+      const audioTempo = document.getElementById("audio-tempo");
 
-            const audios = [
-                audioPentatonix,
-                audioSolo,
-                audioSoprano,
-                audioAlto,
-                audioTenor,
-                audioBass,
-                audioTempo,
-            ];
+      const audios = [
+        audioPentatonix,
+        audioSolo,
+        audioSoprano,
+        audioAlto,
+        audioTenor,
+        audioBass,
+        audioTempo,
+      ];
 
-            // 初始化除原唱外的音量
-            audios.slice(1).forEach((audio) => {
-                audio.volume = 0.5;
-            });
+      // 除原唱外默认音量设为 0.5
+      audios.slice(1).forEach((audio) => {
+        audio.volume = 0.5;
+      });
 
-            const buttonPentatonix = document.getElementById("button-pentatonix");
-            const buttonSolo = document.getElementById("button-solo");
-            const buttonSoprano = document.getElementById("button-soprano");
-            const buttonAlto = document.getElementById("button-alto");
-            const buttonTenor = document.getElementById("button-tenor");
-            const buttonBass = document.getElementById("button-bass");
-            const buttonTempo = document.getElementById("button-tempo");
+      const buttonPentatonix = document.getElementById("button-pentatonix");
+      const buttonSolo = document.getElementById("button-solo");
+      const buttonSoprano = document.getElementById("button-soprano");
+      const buttonAlto = document.getElementById("button-alto");
+      const buttonTenor = document.getElementById("button-tenor");
+      const buttonBass = document.getElementById("button-bass");
+      const buttonTempo = document.getElementById("button-tempo");
 
-            const buttons = [
-                buttonPentatonix,
-                buttonSolo,
-                buttonSoprano,
-                buttonAlto,
-                buttonTenor,
-                buttonBass,
-                buttonTempo,
-            ];
+      const buttons = [
+        buttonPentatonix,
+        buttonSolo,
+        buttonSoprano,
+        buttonAlto,
+        buttonTenor,
+        buttonBass,
+        buttonTempo,
+      ];
 
-            // 注意：原唱没有音量滑块
-            const volumeSolo = document.getElementById("volume-solo");
-            const volumeSoprano = document.getElementById("volume-soprano");
-            const volumeAlto = document.getElementById("volume-alto");
-            const volumeTenor = document.getElementById("volume-tenor");
-            const volumeBass = document.getElementById("volume-bass");
-            const volumeTempo = document.getElementById("volume-tempo");
+      // 注意：原唱没有音量滑块
+      const volumeSolo = document.getElementById("volume-solo");
+      const volumeSoprano = document.getElementById("volume-soprano");
+      const volumeAlto = document.getElementById("volume-alto");
+      const volumeTenor = document.getElementById("volume-tenor");
+      const volumeBass = document.getElementById("volume-bass");
+      const volumeTempo = document.getElementById("volume-tempo");
 
-            const volumes = [
-                null,
-                volumeSolo,
-                volumeSoprano,
-                volumeAlto,
-                volumeTenor,
-                volumeBass,
-                volumeTempo,
-            ];
+      const volumes = [
+        null,
+        volumeSolo,
+        volumeSoprano,
+        volumeAlto,
+        volumeTenor,
+        volumeBass,
+        volumeTempo,
+      ];
 
-            const video = document.getElementById("video");
+      const video = document.getElementById("video");
 
-            // 定义一个允许的时间误差（秒）
-            const timeThreshold = 0.5;
+      // 允许视频与音频的时间差距上限（秒）
+      const videoSyncThreshold = 0.5;
+      // 音频间严格同步的阈值（秒）
+      const audioSyncThreshold = 0.1;
 
-            const updatePlay = () => {
-                const time = video.currentTime;
-                if (buttonPentatonix.checked) {
-                    if (Math.abs(audioPentatonix.currentTime - time) > timeThreshold) {
-                        audioPentatonix.currentTime = time;
-                    }
-                    if (audioPentatonix.paused) {
-                        audioPentatonix.play();
-                    }
-                    // 停止其他音轨
-                    audios.slice(1).forEach((audio) => {
-                        audio.pause();
-                    });
-                } else {
-                    audios.forEach((audio, index) => {
-                        if (buttons[index].checked) {
-                            if (Math.abs(audio.currentTime - time) > timeThreshold) {
-                                audio.currentTime = time;
-                            }
-                            if (audio.paused) {
-                                audio.play();
-                            }
-                        } else {
-                            audio.pause();
-                        }
-                    });
-                }
-            };
+      // 当视频开始播放时，将所有音轨初始定位到视频时间
+      video.addEventListener("play", () => {
+        audios.forEach((audio, index) => {
+          if (buttons[index].checked) {
+            audio.currentTime = video.currentTime;
+            audio.play();
+          }
+        });
+      });
 
-            // 持续监听 timeupdate 事件
-            video.addEventListener("timeupdate", updatePlay);
+      // 持续检查音轨间同步情况
+      const updateAudioSync = () => {
+        // 选中且正在播放的音轨中，以第一个为“主轨”
+        let masterTime = null;
+        for (let i = 0; i < audios.length; i++) {
+          if (buttons[i].checked && !audios[i].paused) {
+            masterTime = audios[i].currentTime;
+            break;
+          }
+        }
+        // 如果都未播放，则以视频时间作为参考
+        if (masterTime === null) {
+          masterTime = video.currentTime;
+        }
+        // 若视频与音轨差距过大，则将“主轨”设为视频时间
+        if (Math.abs(video.currentTime - masterTime) > videoSyncThreshold) {
+          masterTime = video.currentTime;
+        }
+        // 遍历所有选中音轨，若偏差过大则调整到主轨时间
+        audios.forEach((audio, index) => {
+          if (buttons[index].checked && buttons[index].disabled === false) {
+            if (Math.abs(audio.currentTime - masterTime) > audioSyncThreshold) {
+              audio.currentTime = masterTime;
+            }
+            if (audio.paused) {
+              audio.play();
+            }
+          } else {
+            audio.pause();
+          }
+        });
+      };
 
-            video.addEventListener("pause", () => {
-                audios.forEach((audio) => {
-                    audio.pause();
-                });
-            });
+      // 监听视频 timeupdate 事件，但这里主要用于触发音频间同步，而非强制和视频严格同步
+      video.addEventListener("timeupdate", updateAudioSync);
 
-            buttonPentatonix.addEventListener("change", () => {
-                buttons.slice(1).forEach((button) => {
-                    button.disabled = buttonPentatonix.checked;
-                });
-                volumes.slice(1).forEach((slider) => {
-                    slider.disabled = buttonPentatonix.checked;
-                });
-            });
+      // 视频暂停时，暂停所有音轨
+      video.addEventListener("pause", () => {
+        audios.forEach((audio) => {
+          audio.pause();
+        });
+      });
 
-            buttons.forEach((button) => {
-                button.addEventListener("change", () => {
-                    if (!video.paused) {
-                        updatePlay();
-                    }
-                });
-            });
+      // 当切换“原唱”时，禁用其他音轨与滑块
+      buttonPentatonix.addEventListener("change", () => {
+        buttons.slice(1).forEach((button) => {
+          button.disabled = buttonPentatonix.checked;
+        });
+        volumes.slice(1).forEach((slider) => {
+          slider.disabled = buttonPentatonix.checked;
+        });
+      });
 
-            volumes.forEach((slider, index) => {
-                if (slider) {
-                    slider.addEventListener("input", () => {
-                        audios[index].volume = 0.005 * slider.value;
-                    });
-                }
-            });
-        };
-    </script>
+      // 按钮状态改变时触发同步
+      buttons.forEach((button) => {
+        button.addEventListener("change", () => {
+          if (!video.paused) {
+            updateAudioSync();
+          }
+        });
+      });
+
+      // 音量滑块调整音量
+      volumes.forEach((slider, index) => {
+        if (slider) {
+          slider.addEventListener("input", () => {
+            audios[index].volume = 0.005 * slider.value;
+          });
+        }
+      });
+    };
+  </script>
 </body>
 
 </html>
